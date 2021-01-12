@@ -1,36 +1,12 @@
-nNovel Plus
+nNovel Sharp
 ===========
 
-nNovel Plus is a simple e-book reader which runs on TI-Nspire calculator(ndless 3.1 or higher required). The program is able to encode text file with Chinese characters(GBK only). It supports all nspire series including clickpad model, touchpad model, CX and CM.
-
-Two years ago I wrote this program in a hurry because I wanted to read light novel in high school classrooms XD.
-
-Remember the code style of the source is really bad. I will not continue to maintain this project in the future.
-
-#### Screen shots
-![Screen1](./screenshots/1.jpg)  
-![Screen2](./screenshots/2.jpg)  
-![Screen3](./screenshots/3.jpg)  
-![Screen4](./screenshots/4.jpg)  
-
-#### How to use
-1. Create two folders on your calculator named `Fonts` and `nNovel` in the document folder.
-2. Send `HZK16.nft.tns` together with other fonts you like to the `Fonts` folder. As it is the default font, `HZK16.nft.tns` is an essential.
-3. Send `nNovel.tns` to your calculator.
-4. Send text files to `nNovel` folder. Make sure all texts are coded with GBK.
-5. Run `nNovel.tns` on your calculator.
-
-#### Notice
-1. Always keep `HZK16.nft.tns` in the `Fonts` folder. If failed on opening your personal font, `HZK16` will be used instead.
-2. Remember to select 'Remove bookmarks and other files and quit' before you want to delete any text files. Otherwize, bookmarks and other temporary files may remain and you cannot delete them without PC.
-
-#### Download
-Download can be found [here](http://www.cncalc.org/thread-9785-1-1.html)
+nNovel Sharp is a fork of nNovel Plus, a simple e-book reader which runs on TI-Nspire calculators(ndless 3.1 or higher required). The program aims to add UTF-8 support (and drop GBK support) for nNovel Plus. It *may* support all nspire series including clickpad model, touchpad model, CX and CM.
 
 #### Licenses
 >The MIT License (MIT)
 >
->Copyright (c) 2014 ntzyz
+>Copyright (c) 2014 ntzyz, 2021 winderica
 >
 >Permission is hereby granted, free of charge, to any person obtaining a copy
 >of this software and associated documentation files (the "Software"), to deal

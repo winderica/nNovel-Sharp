@@ -1,42 +1,48 @@
 DEBUG = FALSE
+
 GCC = nspire-gcc
-AS = nspire-as
-GXX=nspire-g++
-LD = nspire-ld-bflt
-GCCFLAGS = -Wall -W -marm
+AS  = nspire-as
+GXX = nspire-g++
+LD  = nspire-ld
+GENZEHN = genzehn
+
+GCCFLAGS = -Wall -W -marm -std=c++20
 LDFLAGS =
+ZEHNFLAGS = --name "nNovel"
+
 ifeq ($(DEBUG),FALSE)
 	GCCFLAGS += -Os
 else
 	GCCFLAGS += -O0 -g
-	LDFLAGS += --debug
 endif
-CPPOBJS = $(patsubst %.cpp,%.o,$(wildcard *.cpp))
-OBJS = $(patsubst %.c,%.o,$(wildcard *.c)) $(patsubst %.S,%.o,$(wildcard *.S)) $(CPPOBJS)
-ifneq ($(strip $(CPPOBJS)),)
-	LDFLAGS += --cpp
-endif
-EXE = nNovel.tns
+
+OBJS = $(patsubst %.c, %.o, $(wildcard *.c))
+OBJS += $(patsubst %.cpp, %.o, $(wildcard *.cpp))
+OBJS += $(patsubst %.S, %.o, $(wildcard *.S)))
+EXE = nNovel
 DISTDIR = .
 vpath %.tns $(DISTDIR)
+vpath %.elf $(DISTDIR)
 
-all: $(EXE)
+all: $(EXE).tns
 
 %.o: %.c
-	$(GCC) $(GCCFLAGS) -c $<
+	$(GCC) $(GCCFLAGS) -c $< -o $@
 
 %.o: %.cpp
-	$(GXX) $(GCCFLAGS) -c $<
-	
-%.o: %.S
-	$(AS) -c $<
+	$(GXX) $(GCCFLAGS) -c $< -o $@
 
-$(EXE): $(OBJS)
+%.o: %.S
+	$(AS) -c $< -o $@
+
+$(EXE).elf: $(OBJS)
 	mkdir -p $(DISTDIR)
-	$(LD) $^ -o $(DISTDIR)/$@ $(LDFLAGS)
-ifeq ($(DEBUG),FALSE)
-	@rm -f $(DISTDIR)/*.gdb
-endif
+	$(LD) $^ -o $@ $(LDFLAGS)
+
+$(EXE).tns: $(EXE).elf
+	$(GENZEHN) --input $^ --output $@.zehn $(ZEHNFLAGS)
+	make-prg $@.zehn $@
+	rm $@.zehn
 
 clean:
-	rm -f *.o *.elf $(DISTDIR)/*.gdb
+	rm -f $(OBJS) $(DISTDIR)/$(EXE).tns $(DISTDIR)/$(EXE).elf $(DISTDIR)/$(EXE).zehn

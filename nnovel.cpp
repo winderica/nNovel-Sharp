@@ -100,7 +100,7 @@ public:
         fclose(file);
     }
 
-    void draw(uint32_t unicode, Screen screen, uint32_t x, uint32_t y, uint32_t width) {
+    void draw(uint32_t unicode, Screen &screen, uint32_t x, uint32_t y, uint32_t width) {
         fseek(file, unicode * GLYPH_SIZE, SEEK_SET);
         fread(bitmap, GLYPH_SIZE, 1, file);
         for (uint8_t i = 0; i < 16; i++) {

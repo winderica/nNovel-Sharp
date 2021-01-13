@@ -11,7 +11,7 @@ LDFLAGS =
 ZEHNFLAGS = --name "nNovel"
 
 ifeq ($(DEBUG),FALSE)
-	GCCFLAGS += -Os
+	GCCFLAGS += -O3
 else
 	GCCFLAGS += -O0 -g
 endif

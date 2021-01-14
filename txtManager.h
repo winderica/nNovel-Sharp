@@ -11,7 +11,7 @@ public:
 
     static uint32_t fileSize(FILE *file);
 
-    explicit TxtManager(const std::string &filename);
+    explicit TxtManager(const std::string &txtPath);
 
     uint32_t total();
 

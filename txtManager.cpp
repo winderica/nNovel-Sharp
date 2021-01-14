@@ -7,12 +7,21 @@ uint32_t TxtManager::fileSize(FILE *file) {
     return size;
 }
 
-TxtManager::TxtManager(const std::string &filename) {
-    auto txtPath = "/documents/" + filename + ".txt.tns";
+TxtManager::TxtManager(const std::string &txtPath) {
     txt = fopen(txtPath.c_str(), "r");
-    auto divPath = "/documents/" + filename + ".div.tns";
+    if (!txt) {
+        show_msgbox("Fatal Error", "Cannot open txt file");
+        exit(0);
+    }
+    auto divPath = txtPath;
+    divPath.replace(divPath.end()- 7, divPath.end() - 4, "div");
     if (access(divPath.c_str(), F_OK) != 0) {
         auto div = fopen(divPath.c_str(), "w");
+        if (!div) {
+            show_msgbox("Fatal Error", "Cannot open div file");
+            fclose(txt);
+            exit(0);
+        }
         uint8_t buffer[BUFFER_SIZE];
         uint32_t length = 0;
         fwrite(&length, sizeof(length), 1, div);
@@ -49,6 +58,11 @@ TxtManager::TxtManager(const std::string &filename) {
         fclose(div);
     }
     auto div = fopen(divPath.c_str(), "r");
+    if (!div) {
+        show_msgbox("Fatal Error", "Cannot open div file");
+        fclose(txt);
+        exit(0);
+    }
     auto divSize = fileSize(div);
     pages = std::vector<uint32_t>(divSize / sizeof(uint32_t));
     fread(pages.data(), divSize, 1, div);

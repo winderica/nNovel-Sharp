@@ -2,12 +2,13 @@
 #define NNOVEL_FONT
 
 #include <os.h>
+#include <string>
 
 class Font {
 public:
     static constexpr uint32_t GLYPH_SIZE = 32;
 
-    explicit Font(const char *path);
+    explicit Font(const std::string &filename);
 
     ~Font();
 
